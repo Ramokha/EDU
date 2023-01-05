@@ -1,25 +1,66 @@
 <?php
 
-while (true){
-    $number = (int)readline("Введите число \n");
-    if ((int)$number > 0){
-        if ($number % 8 == 1){
-            echo "finger1";
-            break;
-        } elseif ($number % 8 == 2 || $number % 8 == 0){
-            echo "finger2";
-            break;
-        } elseif ($number % 8 == 3 || $number % 8 == 7){
-            echo "finger3";
-            break;
-        } elseif ($number % 8 == 4 || $number % 8 ==6){
-            echo "finger4";
-            break;
-        } elseif ($number % 8 == 5) {
-            echo "finger5";
-            break;
+//Ввод данных
+
+$box = [
+    [
+        0 => 'Тетрадь',
+        1 => 'Книга',
+        2 => 'Настольная игра',
+        3 => [
+            'Настольная игра',
+            'Настольная игра',
+        ],
+        4 => [
+            [
+                'Ноутбук',
+                'Зарядное устройство'
+            ],
+            [
+                'Компьютерная мышь',
+                'Набор проводов',
+                [
+                    'Фотография',
+                    'Картина'
+                ]
+            ],
+            [
+                'Инструкция',
+                [
+                    'Ключ'
+                ]
+            ]
+        ]
+    ],
+    [
+        0 => 'Пакет кошачьего корма',
+        1 => [
+            'Музыкальный плеер',
+            'Книга'
+        ]
+    ]
+ ];
+
+ $result = findSubject(readline("Введите искомый предмет\n"), $box);
+
+//Логика
+
+function findSubject (string $subject, array $arr): bool
+{
+    foreach ($arr as $key => $value){
+        if ($subject == $value){
+            return true;
         }
-    } else {
-        echo "Введено некорректное значение, введите целое положительное число! \n";
+        if (is_array($value)){
+            $result = findSubject($subject, $value);
+            if ($result != false){
+                return true;
+            }
+        }
     }
-}
+    return false;
+};
+
+//Вывод данных
+
+echo $result ? "Предмет найден" : "Предлет не найден";

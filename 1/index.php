@@ -1,16 +1,16 @@
 <?php
 
-while(true){
-    $task = readline("В каком году произошло крещение Руси? \n Варианты: 810, 988 или 740 год \n");
-    if ($task == 810 || $task == 988 || $task == 740){
-        if ($task == 988){
-            echo "Поздравляем, вы угадали";
-            break;
-        } else {
-            echo "К сожалению, это неправильный ответ";
-            break;
-        }
-    } else {
-        echo "Введите корректное значение \n";
-    }
-}
+//Ввод данных
+
+$arr = range(1, 12);
+
+//Логика
+
+$func = function (int $number): string
+{
+    return $number & 1 ? "nechetnoe" : "chetnoe";
+};
+
+$result = array_map($func, $arr);
+
+print_r($result);
